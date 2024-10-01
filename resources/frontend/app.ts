@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 
-import Placeholder from './components/Placeholder.vue';
+import App from './App.vue';
 import '../css/app.css'
+import router from './router';
 
-createApp(Placeholder).mount('#app')
+createApp(App).use(router).mount('#app')
