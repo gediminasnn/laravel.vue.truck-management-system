@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Interfaces\ITruckRepository;
 use App\Services\TruckService;
+use Illuminate\Database\Eloquent\Collection;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use App\Models\Truck;
@@ -30,11 +31,10 @@ class TruckServiceTest extends TestCase
 
     public function testGetAllTrucksReturnsArrayOfTrucks()
     {
-        $expectedTrucks = [
-            new Truck(['unit_number' => 'TR123', 'year' => 2021, 'notes' => 'First truck']),
-            new Truck(['unit_number' => 'TR124', 'year' => 2022, 'notes' => 'Second truck']),
-        ];
-
+        $expectedTrucks = new Collection([
+            new Truck(['id' => 1, 'unit_number' => 'TR001', 'year' => 2021, 'notes' => 'Truck 1']),
+            new Truck(['id' => 2, 'unit_number' => 'TR002', 'year' => 2022, 'notes' => 'Truck 2']),
+        ]);
         $this->mockTruckRepository->expects($this->once())
             ->method('getAll')
             ->willReturn($expectedTrucks);

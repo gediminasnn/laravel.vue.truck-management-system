@@ -2,7 +2,7 @@
   <div class="bg-white p-8 rounded-lg max-w-md w-full">
     <form @submit.prevent="submitUpdate">
       <h2 class="text-lg font-semibold mb-4">Edit Truck</h2>
-      <ErrorAlert :message="errorMessage" />
+      <Alert type="danger" :message="errorMessage" />
       <div class="mb-5">
         <label for="unit_number" class="block mb-2 text-sm font-medium text-gray-900">Unit number</label>
         <InputField type="text" id="unit_number" v-model="formData.unit_number" placeholder="A-#####" required />
@@ -28,16 +28,16 @@
 <script lang="ts">
 import InputField from '../../components/InputField.vue';
 import TextArea from '../../components/TextArea.vue';
+import Alert from '../../components/Alert.vue';
 import axios from 'axios';
 import { Truck } from '../../models/Truck';
-import ErrorAlert from '../../components/ErrorAlert.vue';
 
 export default {
   name: 'TruckEditModal',
   components: {
     InputField,
     TextArea,
-    ErrorAlert,
+    Alert,
   },
   props: {
     truck: {

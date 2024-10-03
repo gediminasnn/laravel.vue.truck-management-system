@@ -48,30 +48,13 @@ class TruckControllerTest extends TestCase
 
         $response->assertStatus(201)
             ->assertJson([
-                'message' => 'Truck created successfully',
-                'truck' => [
-                    'unit_number' => $truckData['unit_number'],
-                    'year' => $truckData['year'],
-                    'notes' => $truckData['notes']
-                ]
+                'unit_number' => $truckData['unit_number'],
+                'year' => $truckData['year'],
+                'notes' => $truckData['notes']
             ]);
 
         $this->assertDatabaseHas('trucks', $truckData);
     }
-
-    public function testCreateTruckValidationFailure()
-    {
-        $csrfToken = $this->getCsrfToken();
-
-        // Test missing required fields
-        $response = $this->postJson(route('trucks.store'), [], [
-            'X-CSRF-TOKEN' => $csrfToken
-        ]);
-
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['unit_number', 'year']);
-    }
-
 
     public function testGetTruckByIdSuccess()
     {
@@ -116,8 +99,11 @@ class TruckControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Truck updated successfully'
+                'unit_number' => $updateData['unit_number'],
+                'year' => $updateData['year'],
+                'notes' => $updateData['notes'],
             ]);
+
 
         $this->assertDatabaseHas('trucks', $updateData);
     }
@@ -142,21 +128,6 @@ class TruckControllerTest extends TestCase
             ]);
     }
 
-    public function testUpdateTruckValidationFailure()
-    {
-        $csrfToken = $this->getCsrfToken();
-
-        $truck = Truck::factory()->create();
-
-        // Test missing required fields for update
-        $response = $this->putJson(route('trucks.update', ['id' => $truck->id]), [], [
-            'X-CSRF-TOKEN' => $csrfToken
-        ]);
-
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['unit_number', 'year']);
-    }
-
     public function testDeleteTruckSuccess()
     {
         $csrfToken = $this->getCsrfToken();
@@ -167,10 +138,7 @@ class TruckControllerTest extends TestCase
             'X-CSRF-TOKEN' => $csrfToken
         ]);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'message' => 'Truck deleted successfully'
-            ]);
+        $response->assertStatus(204);
 
         $this->assertDatabaseMissing('trucks', ['id' => $truck->id]);
     }

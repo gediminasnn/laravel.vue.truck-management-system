@@ -11,7 +11,7 @@
   export default {
     props: {
       modelValue: {
-        type: String,
+        type: [String, Number],
         default: undefined
       },
       placeholder: {

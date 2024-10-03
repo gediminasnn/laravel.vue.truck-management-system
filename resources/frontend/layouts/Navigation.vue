@@ -7,7 +7,7 @@
             <RouterLink class="text-gray-900 hover:underline" aria-current="page" to="/">Trucks</RouterLink>
           </li>
           <li>
-            <RouterLink class="text-gray-900 hover:underline" to="/sub-trucks">Sub-trucks</RouterLink>
+            <RouterLink class="text-gray-900 hover:underline" to="/subunits">Sub-units</RouterLink>
           </li>
         </ul>
       </div>
